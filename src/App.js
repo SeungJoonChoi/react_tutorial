@@ -152,22 +152,26 @@ function App() {
     //setNextId ??
   }
   return (
-    <div>
-      <Header title="WEB" onChangeMode={()=>{
-        setMode('WELCOME');
-      }}></Header>
-      <Nav topics={topics} onChangeMode={(_id)=>{
-        setMode('READ');
-        setId(_id);
-      }}></Nav>
-      {content}
-      <ul>
-        <li><a href="/create" onClick={event=>{
-        event.preventDefault();
-        setMode('CREATE');
-        }}>Create</a></li>
-        {contextControl}
-      </ul>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+      
+        <Header className="Header" title="WEB" onChangeMode={()=>{
+          setMode('WELCOME');
+        }}></Header>
+        <Nav topics={topics} onChangeMode={(_id)=>{
+          setMode('READ');
+          setId(_id);
+        }}></Nav>
+        {content}
+        <ul>
+          <li><a href="/create" onClick={event=>{
+          event.preventDefault();
+          setMode('CREATE');
+          }}>Create</a></li>
+          {contextControl}
+        </ul>
+      </header>
     </div>
   );
 }
