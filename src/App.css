@@ -33,6 +33,28 @@ to {
 }
 }
 
-.button {
+/* input[type="button"], input[type="submit"] {
     font-size: calc(10px + 1vmin);
+} */
+
+button {
+    font-size: calc(10px + 1vmin);
+}
+
+.Header-name {
+    color:cornflowerblue;
+    text-decoration-line: none;
+}
+
+a {
+    color:darkseagreen;
+}
+
+.Buttons {
+    width: 100%;
+    text-align: center;
+}
+
+.Inner-buttons {
+    display: inline-block;
 }
