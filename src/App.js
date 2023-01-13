@@ -96,12 +96,12 @@ function App() {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
   } else if(mode === 'READ'){
     let title, body = null;
-    for(let i=0; i<topics.length; ++i){
-      if(topics[i].id === id){
-        title = topics[i].title;
-        body = topics[i].body;
+    topics.forEach(topic => {
+      if(topic.id === id){
+        title = topic.title;
+        body = topic.body;
       }
-    }
+    })
     content = <Article title={title} body={body}></Article>
     contextControl = <>
       <button type="button" onClick={()=>{
@@ -132,12 +132,12 @@ function App() {
     contextControl = null;
   } else if(mode === 'UPDATE'){
     let title, body = null;
-    for(let i=0; i<topics.length; ++i){
-      if(topics[i].id === id){
-        title = topics[i].title;
-        body = topics[i].body;
+    topics.forEach(topic => {
+      if(topic.id === id){
+        title = topic.title;
+        body = topic.body;
       }
-    }
+    })
     content = <Update title={title} body={body} onUpdate={(_title, _body)=>{
       const newTopics = [...topics];
       const updatedTopic = {id:id, title:_title, body:_body};
@@ -157,11 +157,11 @@ function App() {
     contextControl = null;
   } else if(mode === 'DELETE'){
     const newTopics = [];
-    for(let i=0; i<topics.length; ++i){
-      if(topics[i].id !== id){
-        newTopics.push(topics[i]);
+    topics.forEach( topic => {
+      if(topic.id !== id){
+        newTopics.push(topic);
       }
-    }
+    })
     setTopics(newTopics);
     setMode('WELCOME');
     setId(null);
