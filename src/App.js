@@ -48,7 +48,7 @@ function Create(props){
     }}>
       <p><input type="text" name="title" placeholder="title"/></p>
       <p><textarea name="body" placeholder="body"></textarea></p>
-      <p><input type="submit" value="Creat"></input></p>
+      <p><input className="button" type="submit" value="Creat"></input></p>
     </form>
   </article>
 }
@@ -102,7 +102,7 @@ function App() {
         event.preventDefault();
         setMode('UPDATE');
       }}>Update</a></li>
-      <li><input type="button" value="Delete" onClick={()=>{
+      <li><input className="button" type="button" value="Delete" onClick={()=>{
         setMode('DELETE');
       }}/></li>
     </>

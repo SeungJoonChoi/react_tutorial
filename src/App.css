@@ -32,3 +32,7 @@ to {
     transform: rotate(360deg);
 }
 }
+
+.button {
+    font-size: calc(10px + 1vmin);
+}
