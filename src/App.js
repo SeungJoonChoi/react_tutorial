@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 
-function Header(props) {
+const Header = (props) => {
   return <header>
     <h1 ><a className="Header-name" href="/" onClick={(event)=>{
       event.preventDefault();
@@ -11,10 +11,9 @@ function Header(props) {
   </header>
 }
 
-function Nav(props) {
+const Nav = (props) => {
   const lis = []
-  for(let i=0; i<props.topics.length; ++i)
-  {
+  for(let i = 0; i < props.topics.length; ++i){
     let t = props.topics[i];
     lis.push(<a key={t.id} id={t.id} href={'/read/'+t.id} onClick={(event)=>{
       event.preventDefault();
@@ -28,14 +27,14 @@ function Nav(props) {
   </nav>
 }
 
-function Article(props) {
+const Article = (props) => {
   return <article>
     <h2>{props.title}</h2>
     {props.body}
   </article>
 }
 
-function Create(props){
+const Create = (props) => {
   return <article>
     <h2>Create</h2>
     <form onSubmit={event=>{
@@ -54,7 +53,7 @@ function Create(props){
   </article>
 }
 
-function Update(props) {
+const Update = (props) => {
   const [title, setTitle] = useState(props.title);
   const [body, setBody] = useState(props.body);
   return <article>
@@ -96,12 +95,12 @@ function App() {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
   } else if(mode === 'READ'){
     let title, body = null;
-    topics.forEach(topic => {
-      if(topic.id === id){
-        title = topic.title;
-        body = topic.body;
+    for(let i=0; i<topics.length; ++i){
+      if(topics[i].id === id){
+        title = topics[i].title;
+        body = topics[i].body;
       }
-    })
+    }
     content = <Article title={title} body={body}></Article>
     contextControl = <>
       <button type="button" onClick={()=>{
@@ -122,7 +121,7 @@ function App() {
       setTopics(newTopics);
       setMode('READ');
       setId(nextId);
-      setNextId(nextId+1);
+      setNextId((current) => current + 1);
     }} onCancel={()=>{
       if(id !== null)
         setMode('READ');
@@ -132,12 +131,12 @@ function App() {
     contextControl = null;
   } else if(mode === 'UPDATE'){
     let title, body = null;
-    topics.forEach(topic => {
-      if(topic.id === id){
-        title = topic.title;
-        body = topic.body;
+    for(let i=0; i<topics.length; ++i){
+      if(topics[i].id === id){
+        title = topics[i].title;
+        body = topics[i].body;
       }
-    })
+    }
     content = <Update title={title} body={body} onUpdate={(_title, _body)=>{
       const newTopics = [...topics];
       const updatedTopic = {id:id, title:_title, body:_body};
@@ -157,11 +156,11 @@ function App() {
     contextControl = null;
   } else if(mode === 'DELETE'){
     const newTopics = [];
-    topics.forEach( topic => {
-      if(topic.id !== id){
-        newTopics.push(topic);
+    for(let i=0; i<topics.length; ++i){
+      if(topics[i].id !== id){
+        newTopics.push(topics[i]);
       }
-    })
+    }
     setTopics(newTopics);
     setMode('WELCOME');
     setId(null);
