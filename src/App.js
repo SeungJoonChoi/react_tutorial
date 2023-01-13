@@ -97,10 +97,15 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
-    contextControl = <li><a href={'/update/'+id} onClick={event=>{
-      event.preventDefault();
-      setMode('UPDATE');
-    }}>Update</a></li>;
+    contextControl = <>
+      <li><a href={'/update/'+id} onClick={event=>{
+        event.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a></li>
+      <li><input type="button" value="Delete" onClick={()=>{
+        setMode('DELETE');
+      }}/></li>
+    </>
   } else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
       const newTopics = [...topics];
@@ -119,12 +124,33 @@ function App() {
         body = topics[i].body;
       }
     }
-    content = <Update title={title} body={body} onUpdate={(title, body)=>{
-      //todo
-      //https://youtu.be/bW_WOrYzVWw?t=983
+    content = <Update title={title} body={body} onUpdate={(_title, _body)=>{
+      const newTopics = [...topics];
+      const updatedTopic = {id:id, title:_title, body:_body};
+      // newTopics[id-1] = updatedTopic;
+      // '키'를 기준으로 정리되기 때문에 위와 같이 '인덱스'에 대입하면 좋지 않음.
+      for(let i=0; i<newTopics.length; ++i){
+        if(newTopics[i].id === id){
+          newTopics[i] = updatedTopic;
+          break;
+        }
+      }
+      setTopics(newTopics);
+      setMode('READ');
     }}></Update>;
+  } else if(mode === 'DELETE'){
+    const newTopics = [...topics];
+    for(let i=0; i<newTopics.length; ++i){
+      if(newTopics[i].id === id){
+        newTopics.splice(i, 1);
+        break;
+      }
+    }
+    setTopics(newTopics);
+    setMode('WELCOME');
+    //setId ??
+    //setNextId ??
   }
-
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
