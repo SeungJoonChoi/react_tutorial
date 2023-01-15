@@ -6,52 +6,34 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
     <script type="text/babel">
-        function MinutesToHours() {
-            const [amount, setAmount] = React.useState(0);
-            const [inverted, setInverted] = React.useState(false);
-            const onChange = (event) => {
-                setAmount(event.target.value);
-            };
-            const reset = () => setAmount(0);
-            const onInvert = () => {
-                reset();
-                setInverted((current) => !current);
-            };
+        function Btn({ text, fontSize = 14}) {
             return (
-                <div>
-                    <div>
-                        <label htmlFor="minutes">Minutes</label>
-                        <input value={inverted ? amount*60 : amount} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled={inverted}/>
-                    </div>
-                    <div>
-                        <label htmlFor="hours">Hours</label>
-                        <input value={inverted ? amount : amount/60} id="hours" placeholder="Hours" type="number" onChange={onChange} disabled={!inverted}/>
-                    </div>
-                    <button onClick={reset}>Reset</button>
-                    <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
-                </div>
+                <button
+                    style={{
+                        backgroundColor: "tomato",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 10,
+                        fontSize: fontSize,
+                    }}>
+                    {text}
+                </button>
             );
         }
-        function KmToMiles() {
-            return (<h3>KM 2 M</h3>);
+        Btn.propTypes = {
+            text: PropTypes.string.isRequired,
+            fontSize: PropTypes.number,
         }
         function App() {
-            const [index, setIndex] = React.useState("xx");
-            const onSelect = (event) => {
-                setIndex(event.target.value);
-            }
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Changes");
             return (
                 <div>
-                    <h1>Super Converter</h1>
-                    <select onChange={onSelect}>
-                        <option value="xx">Select your units</option>
-                        <option value="0">Minute & Hours</option>
-                        <option value="1">Km & Miles</option>
-                    </select>
-                    {index === "xx" ? <h3>Please select your Units</h3> : null}
-                    {index === "0" ? <MinutesToHours /> : null}
-                    {index === "1" ? <KmToMiles /> : null}
+                    <Btn text="Save Changes" fontSize={18}/>
+                    <Btn text={"Continue"}/>
                 </div>
             );
         }
